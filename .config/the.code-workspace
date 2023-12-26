@@ -1,0 +1,59 @@
+{
+  "extensions": {
+    "recommendations": [
+      "ms-python.python",
+      "ms-python.black-formatter",
+      "ms-python.pylint",
+      "ms-python.vscode-pylance",
+      "ms-python.isort",
+      "ms-toolsai.jupyter",
+      "eamodio.gitlens"
+    ]
+  },
+  "folders": [
+    {
+      "path": "..",
+      "name": "@root"
+    },
+    {
+      "path": "../libs"
+    },
+    {
+      "path": "../M1_Producers"
+    },
+    {
+      "path": "../M2_Processors"
+    },
+    {
+      "path": "../M4_Presentation"
+    },
+    {
+      "path": "../MX_ScheduledJobs"
+    }
+  ],
+  "settings": {
+    "[python]": {
+      "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "always"
+    },
+    "files.autoSave": "off",
+    "files.eol": "\n",
+    "files.exclude": {
+      "**/.DS_Store": true,
+      "**/.git": true,
+      "**/.hg": true,
+      "**/.ipynb_checkpoints": true,
+      "**/.pytest_cache": true,
+      "**/.svn": true,
+      "**/.venv": true,
+      "**/__pycache__": true,
+      "**/CVS": true,
+      "**/node_modules": true,
+      "**/Thumbs.db": true
+    },
+    // "isort.args": ["--profile", "black"],
+    "jupyter.askForKernelRestart": false
+  }
+}

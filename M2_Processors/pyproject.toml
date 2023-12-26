@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "de-rbearthgaze-m2"
+version = "1.0"
+description = ""
+authors = ["Tavin S Alderson <neot.oncloud@pm.me>"]
+
+packages = [
+  { include = "shared" },
+  { include = "aircraft" },
+  { include = "airline" },
+  { include = "airport" },
+  { include = "flight" },
+]
+
+[tool.poetry.scripts]
+boom = 'console:shoot'
+
+[tool.poetry.dependencies]
+python = ">= 3.9"
+libs = { path = "../libs", develop = true }
+confluent-kafka = {extras = ["avro", "schema-registry"], version = "^2.3.0"}
+pyspark = "^3.5.0"
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.28.0"
+
+[tool.pylint.format]
+max-line-length = 100
+
+[tool.pylint.'MESSAGES CONTROL']
+disable = "C0413,C0114"
+
+[tool.black]
+line-length = 100
+
+[tool.isort]
+profile = "black"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

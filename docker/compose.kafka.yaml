@@ -1,0 +1,55 @@
+version: '3'
+
+networks:
+  lan:
+    name: de-rbearthgaze-network
+    external: true
+
+services:
+  broker-1:
+    image: docker.io/confluentinc/cp-kafka:7.5.3
+    container_name: broker-1
+    hostname: broker-1
+    ports:
+      - '9092:9092'
+    environment:
+      CLUSTER_ID: 'ciWo7IWazngRchmPES6q5A=='
+      KAFKA_NODE_ID: 1
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'INTERNAL'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'INTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT'
+      KAFKA_LISTENERS: 'INTERNAL://broker-1:29092,CONTROLLER://broker-1:29093,EXTERNAL://0.0.0.0:9092'
+      KAFKA_ADVERTISED_LISTENERS: 'INTERNAL://broker-1:29092,EXTERNAL://localhost:9092'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@broker-1:29093'
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_LOG_RETENTION_MINUTES: 10
+      KAFKA_LOG_RETENTION_CHECK_INTERVAL_MS: 600000
+      KAFKA_OFFSETS_RETENTION_MINUTES: 30
+      KAFKA_OFFSETS_RETENTION_CHECK_INTERVAL_MS: 600000
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TOOLS_LOG4J_LOGLEVEL: ERROR
+      KAFKA_LOG4J_TOOLS_ROOT_LOGLEVEL: WARN
+      KAFKA_LOG4J_ROOT_LOGLEVEL: WARN
+      # KAFKA_LOG_DIRS: "/tmp/kraft-combined-logs"
+    networks:
+      - lan
+
+  schema-registry:
+    image: docker.io/confluentinc/cp-schema-registry:7.5.3
+    container_name: schema-registry
+    hostname: schema-registry
+    ports:
+      - '8081:8081'
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'broker-1:29092'
+      SCHEMA_REGISTRY_LISTENERS: 'http://0.0.0.0:8081'
+      SCHEMA_REGISTRY_TOOLS_LOG4J_LOGLEVEL: ERROR
+      SCHEMA_REGISTRY_LOG4J_TOOLS_ROOT_LOGLEVEL: WARN
+      SCHEMA_REGISTRY_LOG4J_ROOT_LOGLEVEL: WARN
+    depends_on:
+      - broker-1
+    networks:
+      - lan

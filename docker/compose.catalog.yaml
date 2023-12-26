@@ -1,0 +1,40 @@
+version: '3'
+
+networks:
+  lan:
+    name: de-rbearthgaze-network
+    external: true
+
+services:
+  postgres:
+    image: docker.io/library/postgres:16
+    container_name: postgres
+    hostname: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: iceberg-catalog
+      POSTGRES_USER: iceberg
+      POSTGRES_PASSWORD: grebeci
+    networks:
+      - lan
+
+  # nessie:
+  #   image: ghcr.io/projectnessie/nessie:latest
+  #   container_name: nessie
+  #   hostname: nessie
+  #   ports:
+  #     - '19120:19120'
+  #   environment:
+  #     NESSIE_VERSION_STORE_TYPE: JDBC
+  #     QUARKUS_DATASOURCE_JDBC_URL: jdbc:postgresql://postgres:5432/nessie
+  #     QUARKUS_DATASOURCE_USERNAME: nessie
+  #     QUARKUS_DATASOURCE_PASSWORD: eissen
+  #     QUARKUS_HTTP_ACCESS_LOG_ENABLED: false
+  #     QUARKUS_LOG_FILE_ENABLE: false
+  #     QUARKUS_OTEL_TRACES_SAMPLER_ARG: 0.0
+  #     QUARKUS_OIDC_ENABLED: false
+  #   depends_on:
+  #     - postgres
+  #   networks:
+  #     - lan
