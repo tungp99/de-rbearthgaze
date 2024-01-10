@@ -28,6 +28,9 @@ class RawAircraft(Munch):
         maximum_climb_rate  Maximum Climb Rate (ft/min) \n
     """
 
+    img_3d: str
+    img_cs: str
+
     icao: str
     classification: str
     category: str

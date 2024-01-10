@@ -1,4 +1,4 @@
-__all__ = ["RawFlight"]
+__all__ = ["RawFlightSignal"]
 
 from datetime import datetime
 from typing import Optional
@@ -6,7 +6,7 @@ from typing import Optional
 from munch import Munch
 
 
-class RawFlight(Munch):
+class RawFlightSignal(Munch):
     """
     Properties:
 

@@ -3,41 +3,48 @@ __all__ = ["MessageProducer"]
 import atexit
 import json
 from datetime import date, datetime
-from typing import Generic, TypeVar
+from typing import Callable, Generic, TypeVar
+from uuid import uuid4
 
 from confluent_kafka import Producer
 from munch import Munch
 
 from libs.configuration import configure
-from libs.logging.Logging import Logging
+from libs.logging import Logging
 
 T = TypeVar("T", bound=Munch)
 
 
 class MessageProducer(Logging, Generic[T]):
-    def __init__(self, topic: str, error_topic: str = None) -> None:
+    def __init__(
+        self,
+        topic: str,
+        key_serializer: Callable[[], str],
+        value_serializer: Callable[[T], bytes],
+        error_topic: str = None,
+    ) -> None:
         unique_index = f"{self.__class__.__name__}#{topic}"
         super().__init__(unique_index)
 
-        config = configure()
+        env = configure()
 
         self._client = Producer(
             {
                 "client.id": unique_index,
-                "bootstrap.servers": config.kafka.bootstrap_servers,
-                # "security.protocol": config.kafka.security_protocol,
-                # "sasl.mechanism": config.kafka.sasl_mechanism,
-                # "sasl.username": config.kafka.sasl_username,
-                # "sasl.password": config.kafka.sasl_password,
-                "schema.registry.url": config.kafka.schema_registry_url,
-                # "basic.auth.credentials.source": config.kafka.basic_auth_credentials_source,
-                # "basic.auth.user.info": config.kafka.basic_auth_user_info,
+                "bootstrap.servers": env.KAFKA_BOOTSTRAP_SERVERS,
+                # "security.protocol": env.kafka.security_protocol,
+                # "sasl.mechanism": env.kafka.sasl_mechanism,
+                # "sasl.username": env.kafka.sasl_username,
+                # "sasl.password": env.kafka.sasl_password,
             }
         )
         self._topic = topic
         self._dead_letter_topic = (
             error_topic if error_topic is not None else f"{topic}_delivery_error"
         )
+
+        self._key_serializer = key_serializer
+        self._value_serializer = value_serializer
 
         atexit.register(self.__cleanup)
 
@@ -53,16 +60,6 @@ class MessageProducer(Logging, Generic[T]):
     def dead_letter_topic(self):
         """read-only property"""
         return self._dead_letter_topic
-
-    def __json_serialize(self, obj):
-        """JSON serializer for objects not serializable by default json code"""
-        if isinstance(obj, (datetime, date)):
-            return obj.isoformat()
-        raise TypeError(f"Type {type(obj)} not serializable")
-
-    def __serialize(self, data: T):
-        """private method"""
-        return json.dumps(data, default=self.__json_serialize).encode()
 
     def __delivery_callback(self, err, msg):
         """private method"""
@@ -81,10 +78,16 @@ class MessageProducer(Logging, Generic[T]):
             )
 
     def produce(self, data: T):
-        message = self.__serialize(data)
-        self.logger.debug(message)
+        key = self._key_serializer(str(uuid4()))
+        value = self._value_serializer(data)
+        self.logger.debug(value)
 
-        self._client.produce(self.topic, message, callback=self.__delivery_callback)
+        self._client.produce(
+            topic=self.topic,
+            key=key,
+            value=value,
+            on_delivery=self.__delivery_callback,
+        )
         self._client.poll(0)
 
 
@@ -93,7 +96,7 @@ class MessageProducer(Logging, Generic[T]):
 #         unique_index = f"{self.__class__.__name__}#{topic}"
 #         super().__init__(unique_index)
 
-#         config = configure()
+#         env = configure()
 
 #         self._client = Consumer(
 #             {

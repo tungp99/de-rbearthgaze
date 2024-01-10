@@ -7,9 +7,7 @@ authors = ["Tavin S Alderson <neot.oncloud@pm.me>"]
 packages = [
   { include = "shared" },
   { include = "aircraft" },
-  { include = "airline" },
-  { include = "airport" },
-  { include = "flight" },
+  { include = "flight_signal" },
 ]
 
 [tool.poetry.scripts]
@@ -19,7 +17,6 @@ boom = 'console:shoot'
 python = ">= 3.9"
 libs = { path = "../libs", develop = true }
 confluent-kafka = {extras = ["avro", "schema-registry"], version = "^2.3.0"}
-pyspark = "^3.5.0"
 beautifulsoup4 = "^4.12.2"
 ogn-client = "^1.2.1"
 

@@ -92,6 +92,7 @@ class AircraftParser(Logging):
 
         # END: parsing
 
+        self.logger.debug(result)
         return result
 
 

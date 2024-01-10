@@ -9,7 +9,7 @@ packages = [
   { include = "aircraft" },
   { include = "airline" },
   { include = "airport" },
-  { include = "flight" },
+  { include = "flight_signal" },
 ]
 
 [tool.poetry.scripts]

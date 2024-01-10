@@ -23,20 +23,11 @@
     },
     {
       "path": "../M2_Processors"
-    },
-    {
-      "path": "../M4_Presentation"
-    },
-    {
-      "path": "../MX_ScheduledJobs"
     }
   ],
   "settings": {
     "[python]": {
       "editor.defaultFormatter": "ms-python.black-formatter"
-    },
-    "editor.codeActionsOnSave": {
-      "source.organizeImports": "always"
     },
     "files.autoSave": "off",
     "files.eol": "\n",
