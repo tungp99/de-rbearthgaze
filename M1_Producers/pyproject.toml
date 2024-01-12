@@ -4,12 +4,6 @@ version = "1.0"
 description = ""
 authors = ["Tavin S Alderson <neot.oncloud@pm.me>"]
 
-packages = [
-  { include = "shared" },
-  { include = "aircraft" },
-  { include = "flight_signal" },
-]
-
 [tool.poetry.scripts]
 boom = 'console:shoot'
 
@@ -18,7 +12,7 @@ python = ">= 3.9"
 libs = { path = "../libs", develop = true }
 confluent-kafka = {extras = ["avro", "schema-registry"], version = "^2.3.0"}
 beautifulsoup4 = "^4.12.2"
-ogn-client = "^1.2.1"
+avro = "^1.11.3"
 
 [tool.poetry.group.dev.dependencies]
 ipykernel = "^6.28.0"
