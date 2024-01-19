@@ -38,9 +38,9 @@ class Configuration(DefaultMunch, metaclass=SingletonMeta):
     KAFKA_TOPIC_RAW_AIRLINE: str
     KAFKA_TOPIC_T1_AIRLINE: str
     KAFKA_TOPIC_T2_AIRLINE: str
-    KAFKA_TOPIC_RAW_FLIGHT: str
-    KAFKA_TOPIC_T1_FLIGHT: str
-    KAFKA_TOPIC_T2_FLIGHT: str
+    KAFKA_TOPIC_RAW_FLIGHT_SIGNAL: str
+    KAFKA_TOPIC_T1_FLIGHT_SIGNAL: str
+    KAFKA_TOPIC_T2_FLIGHT_SIGNAL: str
 
     POSTGRE_JDBC_URL: str
     POSTGRE_USER: str

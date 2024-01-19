@@ -6,10 +6,6 @@ authors = ["Tavin S Alderson <neot.oncloud@pm.me>"]
 
 packages = [
   { include = "shared" },
-  { include = "aircraft" },
-  { include = "airline" },
-  { include = "airport" },
-  { include = "flight_signal" },
 ]
 
 [tool.poetry.scripts]

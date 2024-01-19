@@ -63,24 +63,22 @@ class MessageProducer(Logging, Generic[T]):
 
     def __delivery_callback(self, err, msg):
         """private method"""
-        if err:
+        if err is not None:
             # TODO: dead lettering here instead
             self.logger.error(err)
         else:
             self.logger.info(
-                json.dumps(
-                    {
-                        "topic": msg.topic(),
-                        "key": msg.key().decode("utf-8"),
-                        "value": msg.value().decode("utf-8"),
-                    }
-                )
+                {
+                    "topic": msg.topic(),
+                    "key": msg.key(),
+                    "value": msg.value(),
+                }
             )
 
     def produce(self, data: T):
         key = self._key_serializer(str(uuid4()))
         value = self._value_serializer(data)
-        self.logger.debug(value)
+        # self.logger.info(data)
 
         self._client.produce(
             topic=self.topic,
