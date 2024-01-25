@@ -68,7 +68,7 @@ https://opensky-network.org/impala-guide
 
 # [Aircrafts Data](https://opensky-network.org/datasets/metadata/)
 
-# [Aircraft Model Data, _doc8643_](https://doc8643.com)
+# [Aircraft Models Data, _doc8643_](https://doc8643.com)
 
 # [AviationWeather](https://aviationweather.gov/data/api/)
 

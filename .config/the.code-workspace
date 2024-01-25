@@ -12,17 +12,7 @@
   },
   "folders": [
     {
-      "path": "..",
-      "name": "@root"
-    },
-    {
-      "path": "../libs"
-    },
-    {
-      "path": "../M1_Producers"
-    },
-    {
-      "path": "../M2_Processors"
+      "path": ".."
     }
   ],
   "settings": {
@@ -44,7 +34,6 @@
       "**/node_modules": true,
       "**/Thumbs.db": true
     },
-    // "isort.args": ["--profile", "black"],
     "jupyter.askForKernelRestart": false
   }
 }

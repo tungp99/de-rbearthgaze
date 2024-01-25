@@ -16,6 +16,7 @@ python = ">= 3.9"
 libs = { path = "../libs", develop = true }
 confluent-kafka = {extras = ["avro", "schema-registry"], version = "^2.3.0"}
 pyspark = "^3.5.0"
+pandera = {extras = ["pyspark"], version = "^0.18.0"}
 
 [tool.poetry.group.dev.dependencies]
 ipykernel = "^6.28.0"
