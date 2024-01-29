@@ -1,9 +1,8 @@
 [tool.poetry]
-name = "de-rbearthgaze-m2"
+name = "de-rbearthgaze-m4"
 version = "1.0"
 description = ""
 authors = ["Tavin S Alderson <neot.oncloud@pm.me>"]
-
 packages = [
   { include = "shared" },
 ]
@@ -11,12 +10,13 @@ packages = [
 [tool.poetry.dependencies]
 python = ">= 3.9"
 libs = { path = "../libs", develop = true }
-confluent-kafka = {extras = ["avro", "schema-registry"], version = "^2.3.0"}
+plotly = "^5.18.0"
+pandas = "^2.2.0"
+ipykernel = "^6.29.0"
+nbformat = "^5.9.2"
+pyarrow = "^15.0.0"
+dash = "^2.14.2"
 pyspark = "^3.5.0"
-pandera = {extras = ["pyspark"], version = "^0.18.0"}
-
-[tool.poetry.group.dev.dependencies]
-ipykernel = "^6.28.0"
 
 [tool.pylint.format]
 max-line-length = 100
