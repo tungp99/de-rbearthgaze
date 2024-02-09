@@ -3,6 +3,9 @@ name = "de-rbearthgaze-m1"
 version = "1.0"
 description = ""
 authors = ["Tavin S Alderson <neot.oncloud@pm.me>"]
+packages = [
+  { include = "shared" },
+]
 
 [tool.poetry.scripts]
 boom = 'console:shoot'
