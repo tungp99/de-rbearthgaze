@@ -1,10 +1,10 @@
 # Development
 
 1. Install [poetry](https://python-poetry.org/docs/#installing-with-the-official-installer)
-2. Run in terminal: `$ poetry install`
-3. `$ poetry run boom <module>`, ex. `M1_Producers.aircraft:run`
+2. Each module starts with M<>_..., cd into the module you want and `$ poetry install`
+3. Experience with notebook
 
-There will be `.secrets/env.yaml`, you can create `.secrets/env.local.yaml` and tailor some variables on your own interest.
+There will be `.env`, you can create `.env.local` and tailor some variables on your own interest.
 
 # Technologies
 
